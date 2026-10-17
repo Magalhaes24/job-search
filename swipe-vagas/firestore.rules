@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function email() {
+      return request.auth != null ? request.auth.token.email : '';
+    }
+    function eChancha() { return email() == 'chancha@job-search.app'; }
+    function eTeste() { return email() == 'teste@job-search.app'; }
+
+    // Cada utilizador só vê e escreve a sua própria árvore.
+    match /users/chancha/{document=**} {
+      allow read, write: if eChancha();
+    }
+    match /users/teste/{document=**} {
+      allow read, write: if eTeste();
+    }
+    // As vagas são partilhadas: os dois leem, só a Chancha altera.
+    match /vagas/{id} {
+      allow read: if eChancha() || eTeste();
+      allow write: if eChancha();
+    }
+  }
+}

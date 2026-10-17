@@ -1,0 +1,81 @@
+{
+  "_ajuda": "Copia este ficheiro para perfil.json e preenche com os teus dados. O perfil.json real não vai para o Git. Campos a null ou listas vazias são ignorados nos textos.",
+  "nome": "Nome Apelido",
+  "email": "nome@exemplo.pt",
+  "telemovel": "+351 900 000 000",
+  "linkedin": null,
+  "curso": {
+    "grau_pt": "licenciatura",
+    "grau_en": "degree",
+    "area_pt": "Economia",
+    "area_en": "Economics",
+    "escola": "Nova SBE",
+    "conclusao_pt": "janeiro de 2027",
+    "conclusao_en": "January 2027"
+  },
+  "media": null,
+  "cadeiras_destaque": [],
+  "projetos_financas": [],
+  "disponibilidade": {
+    "inicio_pt": "janeiro de 2027",
+    "inicio_en": "January 2027",
+    "duracao_pt": "seis meses",
+    "duracao_en": "six-month"
+  },
+  "linguas": {
+    "PT": {
+      "nivel": 1.0,
+      "nome_pt": "português",
+      "nome_en": "Portuguese"
+    },
+    "EN": {
+      "nivel": 0.95,
+      "nome_pt": "inglês",
+      "nome_en": "English"
+    },
+    "ES": {
+      "nivel": 0.3,
+      "nome_pt": "espanhol",
+      "nome_en": "Spanish"
+    },
+    "IT": {
+      "nivel": 0.3,
+      "nome_pt": "italiano",
+      "nome_en": "Italian"
+    },
+    "FR": {
+      "nivel": 0.0,
+      "nome_pt": "francês",
+      "nome_en": "French"
+    },
+    "DE": {
+      "nivel": 0.0,
+      "nome_pt": "alemão",
+      "nome_en": "German"
+    },
+    "NL": {
+      "nivel": 0.0,
+      "nome_pt": "neerlandês",
+      "nome_en": "Dutch"
+    }
+  },
+  "a_aprender": [],
+  "competencias": {
+    "excel_pt": "certificação Microsoft Office Specialist em Excel",
+    "excel_en": "a Microsoft Office Specialist certification in Excel",
+    "python_pt": "certificação em Python",
+    "python_en": "a Python certificate",
+    "powerpoint_pt": "o PowerPoint a um nível avançado",
+    "powerpoint_en": "PowerPoint at an advanced level"
+  },
+  "experiencias": {
+    "logistica_organizacao": null,
+    "logistica_pt": "exerci funções de Head of Logistics{org}, onde coordenei uma equipa de 10 pessoas",
+    "logistica_en": "I served as Head of Logistics{org}, coordinating a team of ten people",
+    "fundraising_pt": "organizei iniciativas de angariação de fundos e eventos",
+    "fundraising_en": "organised fundraising initiatives and events",
+    "voluntariado_pt": "assumi a responsabilidade por grupos de crianças em voluntariado",
+    "voluntariado_en": "took responsibility for groups of children as a volunteer"
+  },
+  "dias_para_followup": 8
+}

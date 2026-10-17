@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches-ignore: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  site:
+    name: Site (build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: swipe-vagas
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: swipe-vagas/package-lock.json
+      - run: npm ci
+      - run: npm run build
+
+  gerador:
+    name: Gerador de candidaturas (testes)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: gerar-candidaturas/requirements.txt
+      - run: pip install -r gerar-candidaturas/requirements.txt
+      - run: python gerar-candidaturas/testes/test_geral.py

@@ -1,0 +1,8 @@
+{
+  "_ajuda": "Opcional. Uma entrada por empresa (o nome tem de conter o texto da coluna Empresa do Excel, sem distinção de maiúsculas). Escreve 1 ou 2 frases verdadeiras e específicas sobre o que te atrai nessa empresa (um deal recente, uma área, um valor, uma conversa que tiveste). As chaves que começam por _ são ignoradas.",
+  "_exemplo": {
+    "motivo_pt": "Escreve aqui, em português, o que te atrai nesta empresa. Uma ou duas frases.",
+    "motivo_en": "Write here, in English, what attracts you to this firm. One or two sentences.",
+    "contacto": "Nome da pessoa a quem escreves, se souberes"
+  }
+}

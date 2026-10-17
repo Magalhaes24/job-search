@@ -1,0 +1,17 @@
+# Dados pessoais e resultados gerados (o repositório é público)
+gerar-candidaturas/dados/perfil.json
+gerar-candidaturas/saidas/
+gerar-candidaturas/registo/*.csv
+_para_apagar/
+# Segredos e ficheiros locais
+.env
+.env.local
+.env.*.local
+swipe-vagas/scripts/semear.html
+# Build
+node_modules/
+dist/
+.firebase/
+__pycache__/
+*.pyc
+*.log

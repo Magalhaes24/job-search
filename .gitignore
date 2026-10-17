@@ -16,3 +16,6 @@ __pycache__/
 *.pyc
 *.log
 .teste-gosto.mjs
+
+# Documentação local (não vai para o Git)
+.local-docs/

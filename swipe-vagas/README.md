@@ -26,6 +26,18 @@ Enquanto isto não estiver feito, o site funciona na mesma: guarda no browser e 
 
 Nota sobre segurança: a chave do Firebase e a palavra-passe do utilizador fixo estão no código do site, por isso servem de portão simples e não de segredo. Para dados realmente privados, publica o site só para ti (Firebase Hosting com acesso restrito) ou acrescenta um PIN.
 
+## O site aprende o gosto dela
+
+`src/lib/aprender.js` treina, no browser, uma regressão logística regularizada com as decisões guardadas (gostos, passos, prioridades e candidaturas). Cada vaga é descrita pela área, tipo de empresa, país, cidade, empresa, língua, dificuldade, salário bruto, interesse e palavras do título.
+
+- Sem dados, a ordem do baralho é a do Excel. À medida que há decisões, a nota aprendida ganha peso (confiança = n / (n + 20), só com gostos e passos suficientes).
+- Prioridade e candidaturas enviadas pesam mais. As decisões antigas pesam menos (meia-vida de 30 dias, contada a partir da última decisão).
+- Exploração: o modelo estima a incerteza de cada previsão e, de cinco em cinco cartas, mostra a vaga mais diferente do que ela já viu, para aprender também o que ela não quer. A fila evita repetir a mesma empresa.
+- Onde aparece: ordem do baralho (filtro «Aprendida com as tuas decisões», o padrão), «Afinidade» no cartão e no detalhe, a sugestão de por onde começar em «Gostei» e a secção «O que aprendi sobre o teu gosto» em Progresso, com os padrões e a validação cruzada.
+- Tudo é recalculado a partir das decisões, por isso não há nada para sincronizar nem para repor.
+
+`npm run testar` simula utilizadoras com gostos conhecidos e verifica que o modelo aprende (corre também no CI).
+
 ## Palavras-passe
 
 Não estão no código. Em local, cria `.env.local` nesta pasta (está no `.gitignore`) com `VITE_SENHA_CHANCHA=...` e `VITE_SENHA_TESTE=...`. Na versão publicada o site mostra um ecrã de entrada e guarda a palavra-passe no dispositivo. Como é um site estático, quem tiver a palavra-passe entra nos dados desse perfil; as regras do Firestore garantem que cada conta só vê os seus.

@@ -16,7 +16,7 @@ const lerFiltros = () => {
 }
 
 export default function Descobrir({ irPara }) {
-  const { s, vagas, stats, decidir, desfazerUltima, toast } = useStore()
+  const { s, vagas, stats, gosto, decidir, desfazerUltima, toast } = useStore()
   const [f, setF] = useState(lerFiltros)
   const [filtrosAbertos, setFA] = useState(false)
   const [detalhe, setDetalhe] = useState(null)
@@ -25,10 +25,10 @@ export default function Descobrir({ irPara }) {
   useEffect(() => { try { localStorage.setItem(LS_F, JSON.stringify(f)) } catch { /* ok */ } }, [f])
 
   const base = useMemo(() => aplicarFiltros(vagas, f), [vagas, f])
-  const fila = useMemo(
-    () => base.filter((v) => { const d = s.decisoes[v.id]; return !d || d.estado === 'none' }),
-    [base, s.decisoes],
-  )
+  const fila = useMemo(() => {
+    const pendentes = base.filter((v) => { const d = s.decisoes[v.id]; return !d || d.estado === 'none' })
+    return f.ordem === 'aprendida' ? gosto.ordenar(pendentes) : pendentes
+  }, [base, s.decisoes, f.ordem, gosto])
   const decididasNoFiltro = base.length - fila.length
 
   const onDecidir = useCallback((v, d) => {

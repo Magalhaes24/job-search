@@ -4,6 +4,7 @@ import { Anel, Contador, Explicacao, Seccao } from '../components/Pecas'
 import { useStore } from '../store'
 import { EM_TESTE, USER_ID } from '../firebase'
 import { CONQUISTAS, META_DIARIA, nivelDe } from '../lib/gamify'
+import Gosto from '../components/Gosto'
 import { diaChave, dataCurta, fmtPct } from '../lib/format'
 
 function Calor({ eventos }) {
@@ -87,6 +88,8 @@ export default function Progresso() {
           })}
         </ul>
       </Seccao>
+
+      <Gosto />
 
       <Seccao titulo="Dados e sincronização">
         <ul className="def">

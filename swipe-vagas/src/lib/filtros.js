@@ -6,11 +6,12 @@ export const FILTROS_INICIAIS = {
   familia: 'todas',
   veredicto: 'todos',
   incluirInativas: false,
-  ordem: 'rank',
+  ordem: 'aprendida',
   texto: '',
 }
 
 export const ORDENS = [
+  ['aprendida', 'Aprendida com as tuas decisões'],
   ['rank', 'Ranking do modelo'],
   ['prob', 'Probabilidade'],
   ['match', 'Match com o CV'],

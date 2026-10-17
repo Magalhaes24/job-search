@@ -1,10 +1,14 @@
 import { Anel, ChanceTag, Pontos } from './Pecas'
+import { useStore } from '../store'
 import { fmtEuro, fmtPct, prazoLegivel } from '../lib/format'
 
 const abrev = (m) => (m || '').replace(/\s*\(.*\)/, '').replace('Não indicado', 'Modalidade a confirmar')
 
 export default function VagaCard({ v }) {
   const prazo = prazoLegivel(v.deadline)
+  const { gosto } = useStore()
+  const afin = gosto.pronto ? gosto.afinidade(v.id) : null
+  const razoes = afin != null ? gosto.razoes(v) : null
   return (
     <div className="carta-vaga">
       <div className="cv-topo">
@@ -31,7 +35,14 @@ export default function VagaCard({ v }) {
       </div>
 
       <p className="cv-resumo">{v.resumo}</p>
-      {v.porque && <p className="cv-porque">{v.porque}</p>}
+      {afin != null && (
+        <p className="cv-afin" title="Estimativa feita a partir das tuas decisões anteriores">
+          <span className="afin-barra"><i style={{ width: `${Math.round(afin * 100)}%` }} /></span>
+          <b>Afinidade {Math.round(afin * 100)}%</b>
+          {razoes.pos.length > 0 && <span>{razoes.pos.join(', ')}</span>}
+        </p>
+      )}
+      {v.porque && afin == null && <p className="cv-porque">{v.porque}</p>}
 
       <dl className="cv-grelha">
         <div><dt>Salário bruto</dt><dd>{v.salMed ? `~${fmtEuro(v.salMed)}/mês` : '—'}</dd></div>

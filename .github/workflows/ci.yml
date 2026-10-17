@@ -25,6 +25,8 @@ jobs:
           cache-dependency-path: swipe-vagas/package-lock.json
       - run: npm ci
       - run: npm run build
+      - name: Testar o algoritmo de gosto
+        run: npm run testar
 
   gerador:
     name: Gerador de candidaturas (testes)

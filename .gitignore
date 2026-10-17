@@ -9,9 +9,10 @@ _para_apagar/
 .env.*.local
 swipe-vagas/scripts/semear.html
 # Build
-node_modules/
+node_modules
 dist/
 .firebase/
 __pycache__/
 *.pyc
 *.log
+.teste-gosto.mjs

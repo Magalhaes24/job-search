@@ -1,6 +1,7 @@
 import Icon from './Icons'
 import Candidatura from './Candidatura'
 import { Anel, ChanceTag, Pontos } from './Pecas'
+import { useStore } from '../store'
 import { PESOS, TAXAS_BASE } from '../lib/model'
 import { fmtEuro, fmtPct, prazoLegivel } from '../lib/format'
 
@@ -10,6 +11,9 @@ const Linha = ({ k, children }) => (children ? (
 
 export default function Detalhe({ v, comCandidatura = true }) {
   const base = TAXAS_BASE.find(([n]) => n === v.dificuldade)?.[1]
+  const { gosto } = useStore()
+  const afin = gosto.pronto ? gosto.afinidade(v.id) : null
+  const rz = afin != null ? gosto.razoes(v, 3) : null
   return (
     <div className="detalhe">
       <div className="det-topo">
@@ -34,6 +38,13 @@ export default function Detalhe({ v, comCandidatura = true }) {
       <dl className="det-grelha">
         <Linha k="Início e duração">{[v.inicio, v.duracao].filter(Boolean).join(' · ')}</Linha>
         <Linha k="Prazo">{v.deadline && !/indicado/i.test(v.deadline) ? `${v.deadline} (${prazoLegivel(v.deadline).toLowerCase()})` : 'Não indicado'}</Linha>
+        {afin != null && (
+          <Linha k="Afinidade">
+            {Math.round(afin * 100)}% de probabilidade de gostares, pelo que decidiste até agora.
+            {rz.pos.length > 0 && ` A favor: ${rz.pos.join(', ')}.`}
+            {rz.neg.length > 0 && ` Contra: ${rz.neg.join(', ')}.`}
+          </Linha>
+        )}
         <Linha k="Línguas">{v.idiomas}</Linha>
         <Linha k="Elegibilidade">{v.elegibilidade}</Linha>
         <Linha k="Salário bruto">

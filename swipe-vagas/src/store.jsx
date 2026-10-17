@@ -3,6 +3,7 @@ import { collection, doc, getDocs, onSnapshot, setDoc, writeBatch } from 'fireba
 import { db, entrar, guardarSenha, USER_ID } from './firebase'
 import vagasBase from './data/vagas.json'
 import { calcStats, CONQUISTAS, mensagem } from './lib/gamify'
+import { treinar } from './lib/aprender'
 import { hojeISO, somarDias } from './lib/format'
 
 const LS = `swipe-vagas:v1:${USER_ID}`
@@ -67,6 +68,8 @@ export function StoreProvider({ children }) {
   vagasRef.current = vagasPorId
 
   const stats = useMemo(() => calcStats(s, vagasPorId), [s, vagasPorId])
+  // O que o site aprendeu sobre o gosto dela: recalculado a partir das decisões guardadas.
+  const gosto = useMemo(() => treinar(vagas, { decisoes: s.decisoes, candidaturas: s.candidaturas }), [vagas, s.decisoes, s.candidaturas])
 
   const toast = useCallback((texto, tom = 'normal') => {
     if (!texto) return
@@ -309,7 +312,7 @@ export function StoreProvider({ children }) {
   }, [commit, escrever, toast])
 
   const valor = {
-    s, vagas, vagasPorId, stats, toasts, estado, auth, entrarComSenha,
+    s, vagas, vagasPorId, stats, gosto, toasts, estado, auth, entrarComSenha,
     decidir, atualizarCandidatura, desfazerUltima, semearVagas, reiniciar, limparTudo, toast,
     dispensarToast: (id) => setToasts((t) => t.filter((x) => x.id !== id)),
   }

@@ -8,7 +8,7 @@ import { pAlgumaOferta, recomendar } from '../lib/model'
 import { fmtPct } from '../lib/format'
 
 export default function Shortlist({ embutido = false, irPara }) {
-  const { s, vagasPorId, decidir } = useStore()
+  const { s, vagasPorId, decidir, gosto } = useStore()
   const [aberta, setAberta0] = useState(null)
   const setAberta = (id) => {
     setAberta0(id)
@@ -20,7 +20,12 @@ export default function Shortlist({ embutido = false, irPara }) {
     () => Object.values(s.decisoes).filter((d) => d.estado === 'like').map((d) => ({ ...vagasPorId[d.id], star: d.star })).filter((v) => v.id),
     [s.decisoes, vagasPorId],
   )
-  const rec = useMemo(() => recomendar(likes), [likes])
+  const rec = useMemo(() => {
+    const r = recomendar(likes)
+    if (!gosto.pronto) return r
+    // a sugestão de por onde começar tem em conta o que ela costuma preferir
+    return r.map((x) => ({ ...x, score: x.score > 0 ? x.score * (0.75 + 0.5 * gosto.afinidade(x.v.id)) : x.score })).sort((a, b) => b.score - a.score)
+  }, [likes, gosto])
   const enviada = (id) => { const c = s.candidaturas[id]; return c && c.estado && c.estado !== 'por-enviar' }
   const porEnviar = rec.filter((r) => !enviada(r.v.id) && r.ativa)
   const topo = porEnviar[0]

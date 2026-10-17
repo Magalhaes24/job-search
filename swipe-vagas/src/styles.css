@@ -36,6 +36,7 @@
   color-scheme: dark;
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 html, body { margin: 0; background: var(--bg); color: var(--tinta); font-family: var(--fonte); -webkit-font-smoothing: antialiased; }
 body { font-size: 15px; line-height: 1.45; letter-spacing: -0.01em; }
 button, input, select, textarea { font: inherit; color: inherit; letter-spacing: inherit; }
@@ -125,7 +126,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 /* ---------- baralho ---------- */
 .descobrir { display: flex; flex-direction: column; align-items: center; }
 .descobrir .topo-vista { width: 100%; max-width: 440px; }
-.deck { position: relative; width: min(440px, 100%); height: clamp(500px, calc(100dvh - 310px), 640px); margin-top: 4px; touch-action: pan-y; }
+.deck { position: relative; width: min(440px, 100%); height: clamp(380px, calc(100dvh - 365px), 700px); margin-top: 4px; touch-action: pan-y; }
 .deck-carta { position: absolute; inset: 0; background: var(--cartao); border-radius: 30px; box-shadow: var(--sombra-forte); overflow: hidden; user-select: none; -webkit-user-select: none; cursor: grab; }
 .deck-carta.fundo { pointer-events: none; transition: transform .3s; }
 .deck-carta.f2 { transform: translateY(14px) scale(.955); opacity: .9; }
@@ -379,3 +380,39 @@ html { transition: background-color .25s; }
 .entrada input { height: 48px; border-radius: 14px; border: 0; padding: 0 16px; background: var(--cartao); box-shadow: var(--sombra); outline: none; text-align: center; }
 .entrada input:focus { box-shadow: 0 0 0 2px var(--azul); }
 .entrada-erro { color: var(--vermelho); font-size: 13.5px; }
+
+/* ---------- telemóvel: o baralho cabe no ecrã, com os botões sempre visíveis ---------- */
+.deck-carta { container-type: size; }
+@media (max-width: 899px) {
+  .nav { padding-left: 4px; padding-right: 4px; }
+  .nav button { min-width: 0; font-size: 10px; letter-spacing: -0.02em; }
+  .descobrir { height: calc(100dvh - 20px - 66px - env(safe-area-inset-bottom) - 16px); }
+  .descobrir .topo-vista { margin-bottom: 12px; }
+  .descobrir .deck { flex: 1 1 0; min-height: 0; height: auto; margin-top: 0; }
+  .descobrir .botoes-deck { margin-top: 22px; flex: none; }
+  .modo-teste .descobrir { height: calc(100dvh - 40px - 66px - env(safe-area-inset-bottom) - 16px); }
+}
+@container (max-height: 640px) {
+  .cv-porque { display: none; }
+}
+@container (max-height: 540px) {
+  .carta-vaga { padding: 20px 20px 16px; }
+  .cv-empresa { font-size: 25px; margin-top: 10px; }
+  .cv-numeros { margin: 12px 0 10px; padding: 9px 0; }
+  .cv-grande b { font-size: 34px; }
+}
+@container (max-height: 460px) {
+  .carta-vaga { padding: 16px 18px 14px; }
+  .cv-empresa { font-size: 22px; margin-top: 8px; }
+  .cv-role { font-size: 14.5px; -webkit-line-clamp: 1; margin-top: 3px; }
+  .cv-meta { margin-top: 3px; font-size: 12.5px; }
+  .cv-numeros { margin: 8px 0; padding: 7px 0; gap: 12px; }
+  .cv-grande b { font-size: 28px; }
+  .cv-resumo { -webkit-line-clamp: 2; font-size: 13.5px; }
+  .cv-grelha { gap: 6px 12px; padding-top: 8px; }
+  .cv-grelha dd { font-size: 13px; }
+}
+@container (max-height: 385px) {
+  .cv-resumo { display: none; }
+}
+@media (max-width: 899px) { .conteudo { padding-bottom: calc(66px + env(safe-area-inset-bottom) + 16px); } }
